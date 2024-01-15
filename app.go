@@ -23,7 +23,7 @@ type Food struct {
 func sendFoodInDelayedOrder(data []Food, order []int, ch chan Food) {
 	go func() {
 		for _, index := range order {
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(1 * time.Second)
 			ch <- data[index]
 		}
 		close(ch)
