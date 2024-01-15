@@ -2,6 +2,6 @@
 
 Proof of concept for streaming HTML out-of-order in Go.
 
-[Demo](https://go-streaming-html-ooo.vercel.app)
+[Demo](https://go-streaming-html-ooo.fly.dev/)
 
 Check out the [blog post](https://ryanjc.com/go-streaming-html-out-of-order) for more information.

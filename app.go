@@ -51,11 +51,6 @@ func main() {
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-
-		ch := make(chan Food)
-		// Send the food to channel in a delayed fixed order
-		go sendFoodInDelayedOrder(Foods, []int{4, 0, 3, 2, 1}, ch)
-
 		t.ExecuteTemplate(w, "head", nil)
 		w.(http.Flusher).Flush()
 
@@ -63,6 +58,9 @@ func main() {
 		t.ExecuteTemplate(w, "content", nil)
 		w.(http.Flusher).Flush()
 
+		ch := make(chan Food)
+		// Send the food to channel in a delayed fixed order
+		go sendFoodInDelayedOrder(Foods, []int{4, 0, 3, 2, 1}, ch)
 		// Stream the food to the browser, item by item
 		for item := range ch {
 			t.ExecuteTemplate(w, "slot", AwaitedSlot{
