@@ -1,0 +1,59 @@
+{{define "head"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Streaming HTML out of order in Go</title>
+    <meta name="description" content="Streaming HTML out of order in Go" />
+</head>
+
+<body>
+    <template shadowrootmode="open">
+        <header>
+            <h1>Streaming HTML out of order in Go</h1>
+        </header>
+        <main>
+            <slot name="content">
+                Loading content...
+            </slot>
+        </main>
+        <footer>Footer <a href="https://ryanjc.com/go-streaming-html-out-of-order">blog post</a></footer>
+    </template>
+{{end}}
+
+{{define "content"}}
+<div slot="content">
+    <template shadowrootmode="open">
+        <ul>
+            <li>
+                <slot name="slot-1">Loading...</slot>
+            </li>
+            <li>
+                <slot name="slot-2">Loading...</slot>
+            </li>
+            <li>
+                <slot name="slot-3">Loading...</slot>
+            </li>
+            <li>
+                <slot name="slot-4">Loading...</slot>
+            </li>
+            <li>
+                <slot name="slot-5">Loading...</slot>
+            </li>
+        </ul>
+    </template>
+{{end}}
+
+{{define "slot"}}
+<span slot="{{ .Slot }}">{{.Html}}</span>
+{{end}}
+
+{{define "tail"}}
+<!-- Note that "content" slot is closed after -->
+</div>
+</body>
+
+</html>
+{{end}}
